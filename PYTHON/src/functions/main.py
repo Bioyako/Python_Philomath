@@ -1,7 +1,7 @@
 # def function_name(parameters)
 # definition
 
-def sum_two_ints(a:int, b;int) -> int:     # generic way to define a function; int and arrow are optionals
+def sum_two_ints(a:int, b:int) -> int:     # generic way to define a function; int and arrow are optionals
     """                 # Documentation 
     Returns the sum of two imput integers.
 
@@ -15,7 +15,7 @@ def sum_two_ints(a:int, b;int) -> int:     # generic way to define a function; i
     return a+b              # this is the output of the function
 
 # Function cacn also return more than one value
-def double_and_duplicate(x: float) -> tuple[float, float] # multiple variable associated to the same thing (race) - fix number of things - tuple = an ordered pair of possibly multiple variables   
+def double_and_duplicate(x: float) -> tuple[float, float]: # multiple variable associated to the same thing (race) - fix number of things - tuple = an ordered pair of possibly multiple variables   
     """
     Double the input variable and return two copies of it.
 
@@ -52,7 +52,7 @@ def add_one(k :int) -> input:
     return k
     # k has served its meaningful life (has been destroyed)
 
-def main()
+def main():
     """
     Special function that takes no inputs,produces no outputs,
     but that constitutes the runnable component of our program.
@@ -75,7 +75,7 @@ def main():
     # the definition of a function can occcur in any order
     # BUT... when executions are executed, definitions must have already been encountered
     
-    print(double_and_duplicate(2,7))
+    print(double_and_duplicate(2.7))
 
     print_hi()  # print something is not returning something
 
