@@ -17,6 +17,41 @@ EuclidGCD(a,b)
     return a   
 """
 
+def faster_euclid_gcd(a:int, b:int) -> int:
+    """
+    Returns the GCD of two integers using a Euclid's algorithm.
+    
+    Parameters:
+    - a (int)
+    - b (int)
+
+    Returns;
+    int: GCD of a and b
+    """
+
+    # if you have negaive values, flip their signs
+    if a < 0:
+         a = -a
+    if b < 0:
+         b = -b
+    
+    # we're going to keep going for how long?
+    while (a != 0) and (b != 0):
+         if a > b:
+              a = a % b
+         else:
+              b = b % a
+
+    # so if we make it here, either a or b is 0 (they might both be 0)
+    # ... we are in the realm of the mathematicians
+    if a == 0:
+         return b
+    else:
+         # b = 0
+         return a
+
+
+
 def euclid_gcd(a:int, b:int) -> int:
     """
     Returns the GCD of two integers using a Euclid's algorithm.
@@ -108,7 +143,7 @@ def main():
     x = 3782026
     y = 2731479
     
-    # time the trivial approach
+    # 1- time the trivial approach
     start = time.time() # starts a stopwatch
     trivial_gcd(x, y)
     elapsed_trivial = time.time() - start # stops the watch
@@ -116,6 +151,7 @@ def main():
     # print the time in a pretty way
     print(f"trivial_gcd took {elapsed_trivial:.6f} seconds.") # f means format in a nice way
 
+    # 2-
     start = time.time() 
     euclid_gcd(x, y)
     elapsed_euclid = time.time() - start 
@@ -124,7 +160,18 @@ def main():
     # the speedup provided by an algorithm 1 compared to algorithm 2 is the ratio
     # of the runtime of algorithm 2 to algorithm 1
     speedup = elapsed_trivial/elapsed_euclid
-    print(f"Speedup: {speedup:.2f}x faster")
+    print(f"Speedup of Euclid vs Trivial: {speedup:.2f}x faster")
+
+    # 3-
+    start = time.time() 
+    faster_euclid_gcd(x, y)
+    elapsed_f_euclid = time.time() - start 
+    print(f"faster_euclid_gcd took {elapsed_f_euclid:.6f} seconds.") # f means format in a nice way
+
+    # the speedup provided by an algorithm 1 compared to algorithm 2 is the ratio
+    # of the runtime of algorithm 2 to algorithm 1
+    speedup = elapsed_trivial/elapsed_f_euclid
+    print(f"Speedup of Fast Euclid vs Normal Euclid: {speedup:.2f}x faster")
 
 if __name__ == "__main__":
     main()
