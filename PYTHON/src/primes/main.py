@@ -11,7 +11,7 @@ TrivialPrimeFinder(n)
 
 import math
 import time
-import math
+import matplotlib.pyplot as pyplot
 
 def trivial_prime_finder(n:int) -> list[bool]:
     """
@@ -168,7 +168,102 @@ def list_primes(n:int) -> list[int]:
 
 # Let's plot all the primes up to n
 
-#def prime_count_array(n:int) ->
+def prime_count_array(n:int) -> list[int]:
+    """
+    Produces a list storing the number of primes
+    encountered up to a given integer.
+
+    Parameters:
+    - n: int
+
+    Output:
+    list[int]: list having length n+1 whose k-th element 
+    is equal to the number of primes less than or equal to k
+    """
+
+    if n < 0:
+        raise ValueError("Error: negative integer given.")
+    
+    # first get all the prime values as True or False
+    prime_booleans = sieve_of_erastothenes(n)
+
+    # next, let's make the list we care about
+    result = [0] * (n+1)
+
+    # we need to keep track of how many primes we have
+    # encountered up to a point in time
+    prime_counter = 0
+
+    # range over list of primes
+    for i, is_prime in enumerate(prime_booleans):
+        # is current number prime?
+        if is_prime:
+            # found a prime! so update counter
+            prime_counter += 1
+        # set the current value of my list equal to num of primes encounere thus far
+        result[i] = prime_counter
+
+    return result
+
+def plot_primes(n:int, step:int):
+    """ 
+    Plots the number of prime numbers as a line graph, where
+    (x, y) correspondss to: x = integer k, y = # of primes 
+    encountered up to and including k, where we skip every
+    step x-values for some parameters.
+    
+    Parameters:
+    - n (int)
+    - step (int)
+
+    Output:
+    (nothing, produces plot)
+    """
+
+    if n < 0 or step < 1:
+        raise ValueError("Invalid value given.")
+
+    # function for number of primes up to and including k is called pi(k)
+    pi = prime_count_array(n)
+
+    # make lists of x and y values
+    x_values = []
+
+    # x-values are all the values of k, where we increase by step size each time
+    for x in range(2, n+1, step):
+        x_values.append(x)
+
+    # make list of y values
+    y_values = []
+
+    # for a given x, the y-value is pi(x), the number of primes that I have encountered thus far
+    for x in x_values:
+        y_values.append(pi[x])
+
+    # let's have another collection of y-values corresponding to n/log(n)
+    y_values_approx = []
+    for x in x_values:
+        y_values_approx.append(x/math.log(x))
+
+    # now, plot
+    pyplot.figure(figsize=(9,6)) # width anf height in inches
+    
+    pyplot.plot(x_values, y_values, label=r"pi(n), prime count")
+
+    # add in a plot for the n/log(n) function
+    pyplot.plot(x_values, y_values_approx, linestyle="--", label="n/log(n)")
+
+    pyplot.title("Prime Counting Function pi(n) vs. n/log(n)")
+
+    pyplot.xlabel("n")
+
+    pyplot.ylabel("pi(n)")
+
+    pyplot.legend()
+    pyplot.tight_layout() # ensure that automatically resized
+    pyplot.show()   # we are ready to draw
+
+# pin(n) is very similar to n/log(n) -- natural logarithm
 
 def main():
     print("Prime finding.")
@@ -198,6 +293,12 @@ def main():
 
     prime_list = list_primes(23)
     print(prime_list)
+
+    print(prime_count_array(23))
+
+    n = 10000
+    step = 100
+    plot_primes(n, step)
 
 if __name__ == "__main__":
     main()
