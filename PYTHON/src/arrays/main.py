@@ -92,7 +92,7 @@ def factorial_array(n:int) -> list[int]:
     for k in range(1, n+1):
         fact[k] = fact[k-1]*k
     
-        return fact
+    return fact
 
 def min_integer_array(a: list[int]) -> int:
     if len(a) == 0:

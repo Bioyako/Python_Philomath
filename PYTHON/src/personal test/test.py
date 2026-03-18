@@ -6,6 +6,7 @@ def main():
     print(euclid(378, 273))
     print(isprime(8))
     print(array_prime(11))
+    print(fibonacci(10))
 
 def int_div(n:int, p:int) -> int:           # n ≥ 0      p > 0
     i = 0
@@ -39,7 +40,11 @@ def array_prime(n:int):
             primeBooleans = [True]
     return primeBooleans
 
-#def fibonacci(n: int) -> int:
+def fibonacci(n: int) -> list[int]:
+    a = [1, 1]
+    for i in range(2, n):
+        a.append(a[i-2] + a[i-1])
+    return a
 
 
 

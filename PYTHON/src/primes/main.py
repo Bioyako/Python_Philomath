@@ -51,6 +51,9 @@ def is_prime(p:int) -> bool:
     if p < 0:
         raise ValueError("Error: negative integer given as input.")
     
+    if p == 1:
+        return False
+
     for k in range(2, int(math.sqrt(p))+1):
         # is k a divisor of p?
         if p % k == 0:
@@ -110,13 +113,9 @@ def cross_off_multiples(prime_booleans:list[bool], p:int) -> list[bool]:
     list[bool]: update version of prime_booleans corresponding to setting prime_booleans[k] = False
     for every integer k that is a multiple of p
     """
-
-    if p < 2:
-        raise ValueError("Error: value of p too small.")
     
     if len(prime_booleans) < 2:
-        raise ValueError("Error: prime booleans list too short")
-
+        return prime_booleans
     # make sure that n is declared
     # len(prime_booleans) = n+1
     # len(prime_booleans) - 1 = n
@@ -149,7 +148,7 @@ def list_primes(n:int) -> list[int]:
 
     prime_list = [] # or list()
 
-    # we already havvve code to find the primes
+    # we already have code to find the primes
     prime_booleans = sieve_of_erastothenes(n)
 
     # range through this list and identify which ones are True
